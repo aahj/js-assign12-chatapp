@@ -1,0 +1,120 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.top {
+    width: 100%;
+    height: 100px;
+    background-color: #009688;
+    position: fixed;
+    z-index: -1;
+}
+
+/* -----main----- */
+
+#main {
+    width: 50%;
+    min-width: 400px;
+    margin: 0 auto;
+    padding-top: 30px;    
+}
+
+.box {
+    height: 94vh;    
+    width: 100%;
+}
+
+/* -----Header----- */
+
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: #17d1be;
+}
+
+.profile {
+    margin: 15px;
+}
+
+.username {
+    margin: 25px 0px;
+    display: inline-block;
+}
+
+.fas {
+    margin: 30px 0px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+/* --------body-------- */
+
+#body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70%;
+}
+
+.received {
+    display: inline-block;
+    background-color: #17d1be;
+    padding: 15px 15px;
+    border-radius: 0 1.4rem 1rem;
+    margin: 8px 0;
+    text-align: left;
+}
+
+.sent {
+    display: inline-block;
+    background-color: rgb(187, 184, 184);
+    padding: 15px 15px;
+    border-radius: 1.4rem 0 1.4rem 1.4rem;
+    float: right;
+    margin: 8px 20px 8px 0;
+}
+
+/* --------footer-------- */
+
+/* .footer{
+    position: absolute;
+    bottom: 0;    
+} */
+
+.footer #input {
+    /* display: flex;
+    flex: 1; */
+    /* width: 250px; */
+    border-radius: 1rem;
+}
+/* -----------signup--------------- */
+.signbox .fas{
+    font-size: 7.5em;
+    padding-top: 20px;
+}
+.signbox .fab {
+    margin: 35px;
+    font-size: 1.5em;
+}
+.iconBtn{
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 60px;
+}
+.iconBtn:hover{
+    background-color: antiquewhite;
+}
+.signbox h1 {
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 5px;
+}
+.signbox {
+    height: 100%;    
+    width: 100%;
+    border: 5px solid #17d1be;
+}
