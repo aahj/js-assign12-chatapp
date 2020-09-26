@@ -12,38 +12,38 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
-<body>
-
+<body onload="populateFriend()">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">With whom you want to chat ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="friendList" class="list-group list-group-flush">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal end -->
     <span class="top"></span>
     <section id="main">
         <div class="container">
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Start a new chat</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">                            
-                            <button type="button" class="btn btn-primary">Start</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="box shadow-lg p-0 bg-white rounded">
                 <div class="header">
                     <div class="row text-center">
                         <div class="col-3 col-sm-3 col-md-3"><img id="imgProfile" class="profile rounded-circle"
                                 src="img/userIcon.png" alt="user" width="50px" height="50px"></div>
                         <div class="col-6 col-sm-6 col-md-6" style="border: 2px solid rgb(175, 167, 167);">
-                            <h5 id="username" class="username">Nancy Farnandez</h5>
+                            <h5 id="username" class="username"></h5>
                         </div>
                         <div class="col-3 col-sm-3 col-md-3">
                             <i onclick="signout()" class="fas fa-sign-out-alt"></i>
@@ -55,36 +55,37 @@
                     <div class="row">
                         <div class="col-5 col-sm-5 col-md-3">
                             <ul class="receivedMessage">
-                                <li class="received">This is some text area</li>
-                                <li class="received">This is</li>
+                                <li class="received">This is some text area</li>                                
                             </ul>
                         </div>
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-6 col-sm-6 col-md-4">
                             <ul id="sentMessage">
-                                <li class="sent">hi</li>
+                                <!-- <li class="sent">hi</li>                   -->
                             </ul>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="footer">
-                    <div class="row justify-content-center">
-                        <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-1 col-sm-1 col-md-1">
+
+                        </div>
+                        <div class="col-8 col-sm-8 col-md-9">
                             <input type="text" id="input" class=" form-control p-3 form-rounded"
                                 placeholder="Type a Message" onclick="onkeyPress()">
-                            <button class="btn btn-info" id='sentbtn' onclick="sentFunction()">sent</button>
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-2">
+                            <button class="btn btn-info" id='sentbtn' onclick="sentFunction()"><i
+                                    class="fas fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
 
 
 
@@ -109,6 +110,5 @@
 
 </body>
 <script src="app.js"></script>
-<script src="auth.js"></script>
 
 </html>
