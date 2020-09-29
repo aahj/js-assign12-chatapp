@@ -17,14 +17,25 @@ const username = document.getElementById('username');
 const email = document.getElementById('email');
 const pass = document.getElementById('pass');
 let db = firebase.database().ref('User');
-var receivedMessage = document.getElementById('receivedMessage');
-var sentMessage = document.getElementById('sentMessage');
 var exampleModal = document.getElementById('exampleModal');
 var friendList = document.getElementById('friendList');
 var input = document.getElementById('input');
 var body = document.getElementById('body');
+var main_section = document.getElementById('main');
 let currentuserKey = '';
 let chatKey = '';
+
+let facebookSigin = ()=>{
+  var provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+  .then(function(result) {
+    window.location.replace('chat.html');
+  })
+  .catch(function(error) {    
+    var errorMessage = error.message;
+    alert(errorMessage);
+  });
+}
 
 let googleSignin = () => {
   var provider = new firebase.auth.GoogleAuthProvider();
@@ -95,14 +106,14 @@ function initiate_chat(frndKey, frndName, frndPic) {
   var frnd_data = {
     frndId: frndKey,
     activeUser: currentuserKey
-  }
+  }  
   var flag = false;
   frndDB.on('value', function (frnds) {
     frnds.forEach(function (data) {
       var user = data.val();
       if (user.frndId === frnd_data.frndId && user.activeUser === frnd_data.activeUser || user.frndId === frnd_data.activeUser && user.activeUser === frnd_data.frndId) {
         flag = true;
-        chatKey = data.key;
+        chatKey = data.key;       
       }
     })
     if (flag === false) {
@@ -112,16 +123,46 @@ function initiate_chat(frndKey, frndName, frndPic) {
     }
     imgProfile.src = frndPic;
     username.innerHTML = frndName;
+    loadChats(chatKey);
   })
+  main_section.removeAttribute('style');
+}
 
+function loadChats(chatKey) {  
+  var load = firebase.database().ref('Chat Messages').child(chatKey);
+  load.on('value', function (msj) {
+    var display_message = '';
+    msj.forEach(function (data) {
+      var chatMess = data.val();
+      if (chatMess.userid !== currentuserKey) {                                          
+        display_message += `<div class="row">
+                        <div class="col-5 col-sm-5 col-md-3">
+                            <ul>  
+                            <li class="received">${chatMess.msg}</li>                                                          
+                            </ul>
+                        </div>
+                    </div>`;
+      }
+      else {        
+        display_message += `<div class="row justify-content-end">
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul id="sentMessage">  
+                            <li class="sent">${chatMess.msg}</li>                              
+                            </ul>
+                        </div>
+                    </div>`;
+      }
+    })
+    body.innerHTML = display_message;
+  })  
 }
 
 function populateFriend() {
+  main_section.setAttribute('style','display:none');
   var lists = '';
   var key = db.push().key;
   var flag = false;
   db.on('value', function (users) {
-
     users.forEach(function (data) {
       var user = data.val();
       if (user.email !== firebase.auth().currentUser.email) {
@@ -138,6 +179,7 @@ function populateFriend() {
     </li>`;
       }
     })
+
     friendList.innerHTML += lists;
   })
 
@@ -150,18 +192,14 @@ function onkeyPress() {
     }
   })
 }
+
 let sentFunction = () => {
   var chatting = {
+    userid: currentuserKey,
     msg: input.value
   }
-  firebase.database().ref('Chat Messages').child(chatKey).push(chatting);
-
-  //for p tag and its text
-  var li = document.createElement('li');
-  var liText = document.createTextNode(input.value);
-  li.setAttribute('class', 'sent')
-  li.appendChild(liText);
-  sentMessage.appendChild(li);
+  if (!input.value.trim()) return;
+  firebase.database().ref('Chat Messages').child(chatKey).push(chatting);  
   input.value = "";
   input.focus();
   body.scrollTo(0, body.clientHeight);
